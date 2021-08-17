@@ -1,0 +1,26 @@
+.div_input
+{
+    margin-top: 3rem;
+    margin-left: 5rem;
+    margin-right: 15rem;
+    background-color: black;
+}
+
+#botao_inserir{
+    margin-top: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+
+#json
+{
+    margin-top: 7rem;
+    text-align: center;
+}
+
+body
+{
+    background-color: rgb(17, 17, 17);
+}
+

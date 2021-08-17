@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotina de conhecimento</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#cpf').mask("000.000.000-00")
+            $('#salario').mask("999.999.990,00", { reverse: true })
+            $('#celular').mask("(00)9 0000-0000")
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#botao_inserir").click(function () {
+                var senha = $("#senha").val();
+                var senha2 = $("#confirm_senha").val();
+                if (senha != senha2) {
+                    event.preventDefault();
+                    alert("As senhas não são iguais!");
+                }
+            });
+        });
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="./CSS/style.css">
+</head>
+
+<body>
+
+    <div class="div_input rounded-3 row g-3 shadow">
+        <form action="" class="row g-3" method="POST" id="form_cadastro">
+            <div class="col-md-6">
+                <label for="cpf" class="form-label text-white">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Ex: 000.000.000-00" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="nome" class="form-label text-white">Nome completo</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="data" class="form-label text-white">Data de nascimento</label>
+                <input type="date" class="form-control" id="data" name="data" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="endereco" class="form-label text-white">Endereço</label>
+                <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Ex: Rua tururu, 1"
+                    required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="salario" class="form-label text-white">Salário</label>
+                <div class="input-group">
+                    <div class="input-group-text">R$</div>
+                    <input type="text" class="form-control" id="salario" name="salario" placeholder="Ex: 1000,00"
+                        required>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="celular" class="form-label text-white">Celular</label>
+                <input type="text" class="form-control" id="celular" name="celular" placeholder="Ex: (11)9 9999-9999"
+                    required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="senha" class="form-label text-white">Senha</label>
+                <div class="input-group">
+                    <div class="input-group-text">!</div>
+                    <input type="text" class="form-control" id="senha" name="senha" placeholder="Mínimo 4 caracteres "
+                        required>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="confirm_senha" class="form-label text-white">Confirmação de senha</label>
+                <div class="input-group">
+                    <div class="input-group-text">!</div>
+                    <input type="text" class="form-control" id="confirm_senha" name="confirm_senha" placeholder="Confirme a sua senha"
+                        required>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="email" class="form-label text-white">E-mail</label>
+                <div class="input-group">
+                    <div class="input-group-text">@</div>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Ex: email@gmail.com"
+                        required>
+                </div>
+            </div>
+
+            <p>
+            <div class="col-4">
+                <button type="submit" class="btn btn-outline-success" id="botao_inserir">Inserir funcionário</button>
+            </div>
+            </p>
+        </form>
+    </div>
+
+    <h2 id="json">RETORNO DO JSON</h2>
+    <div id="resposta">
+
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+
+
+        $('#botao_inserir').click(function () {
+
+            var dados = $('#form_cadastro').serialize();
+
+            $.ajax({
+                method: 'GET',
+                url: './PHP/LocalCadastro.php',
+                data: dados,
+
+                beforeSend: function () {
+                    $("h2").html("Processo em andamento...");
+                }
+
+            })
+
+                .done(function (msg) {
+                    $("h2").html("Retorno da inclusão...");
+                    $("#resposta").html(msg);
+
+                })
+
+                .fail(function () {
+
+                    alert("Falaha na inclusão");
+
+                })
+
+            return false;
+
+        })
+
+    });
+
+</script>
