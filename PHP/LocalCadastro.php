@@ -22,23 +22,25 @@
 		$insercao->bindParam(5, $salario);
 		$insercao->bindParam(6, $senha);
 
-		$insercao=$connect->prepare("INSERT INTO dados_contato (celular, email, cpf) VALUES (?, ?, ?)");
-		$insercao->bindParam(1, $celular);
-		$insercao->bindParam(2, $email);
-		$insercao->bindParam(3, $cpf);
+		$insercao2=$connect->prepare("INSERT INTO dados_contato (celular, email, contato_pess) VALUES (?, ?, ?)");
+		$insercao2->bindParam(1, $celular);
+		$insercao2->bindParam(2, $email);
+		$insercao2->bindParam(3, $contato_pess);
 
-		$comando->execute();		
+		$insercao->execute();
+		$insercao2->execute();		
 
-		if ($insercao->rowCount() > 0)
+		if ($insercao && $insercao2->rowCount() > 0)
 		{
 			$cpf = null;
 			$nome = null;
 			$data = null;
 			$endereco = null;
-			$salario = null;
+			$salario = null; 
 			$senha = null;
 			$celular = null;
 			$email = null;
+			$contato_pess = null;
 			
 			$retornoJSON = "inclusão feita com sucesso!";
 		}
