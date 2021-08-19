@@ -27,6 +27,7 @@
 		$insercao->bindParam(2, $email);
 		$insercao->bindParam(3, $cpf);
 
+		$comando->execute();		
 
 		if ($insercao->rowCount() > 0)
 		{

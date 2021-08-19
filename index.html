@@ -1,16 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Login e busca</title>
 </head>
+
 <body class="body_index">
-    <div>
-        <form action=""></form>
+
+    <div class="col-md-6">
+        <h2 id="op_text">Olá! Já é cadastrado?</h2>
+        <div class="input-group">
+            <div class="input-group-text">!</div>
+            <input type="password" class="form-control" id="senha" name="senha" placeholder="Mínimo 4 caracteres "
+                required>
+        </div>
     </div>
-    
+    <!-- <div>
+        <div class="div_index">
+            <h2 id="op_text">Olá! Já é cadastrado?</h2>
+            <form action="./inserir.html" method="POST">
+                <input class="input_index" type="submit" value="Insira seu cadastro">
+                <br><br>
+            </form>
+            <form action="./PHP/BuscaPessoa.php" method="POST">
+                <input class="input_index" type="submit" value="Busque seu cadastro">
+            </form>
+            <footer id="footer_index">
+                Nykollas Miguel - Rotina de conhecimento 3º Modulo
+            </footer>
+        </div> -->
+
 </body>
+
 </html>
+
+<script>
+    $(document).ready(function () {
+
+
+        $('#botao_inserir').click(function () {
+
+            var dados = $('#form_cadastro').serialize();
+
+            $.ajax({
+                method: 'GET',
+                url: './PHP/LocalCadastro.php',
+                data: dados,
+
+                beforeSend: function () {
+                    $("h2").html("Processo em andamento...");
+                }
+
+            })
+
+                .done(function (msg) {
+                    $("h2").html("Retorno da inclusão...");
+                    $("#resposta").html(msg);
+
+                })
+
+                .fail(function () {
+
+                    alert("Falha na inclusão");
+
+                })
+
+            return false;
+
+        })
+
+    });
+
+</script>
